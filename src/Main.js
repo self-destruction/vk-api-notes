@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp';
 import { css } from 'react-emotion';
 import { ClipLoader } from 'react-spinners';
-import NotesAdd from "./NotesAdd";
+import AddNote from "./AddNote";
 
 const override = css`
   display: block;
@@ -68,7 +68,7 @@ class Main extends Component {
             return (
                 <div>
                     {this.createMarkup()}
-                    <NotesAdd token={this.state.token} addNote={this.addNote}/>
+                    <AddNote token={this.state.token} addNote={this.addNote}/>
                 </div>
             );
         } else {

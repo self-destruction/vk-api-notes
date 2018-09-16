@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import fetchJsonp from "fetch-jsonp";
 
-class NotesAdd extends Component {
+class AddNote extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,4 +64,4 @@ class NotesAdd extends Component {
     }
 }
 
-export default NotesAdd;
+export default AddNote;

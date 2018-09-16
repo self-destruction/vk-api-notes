@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from "@material-ui/core/Button/Button";
 
 class Auth extends Component {
     redirectUri = 'http://localhost:3000';
@@ -31,14 +32,12 @@ class Auth extends Component {
         if (!loaded) {
             return (
                 <div>
-                    <a
-                        className="button"
-                        href={
-                            `https://oauth.vk.com/authorize?client_id=${clientId}&
-                            display=page&redirect_uri=${this.redirectUri}&scope=notes&response_type=token&v=5.85`}
-                    >
+                    <Button variant="contained" color="primary"
+                            href={
+                                `https://oauth.vk.com/authorize?client_id=${clientId}&
+                            display=page&redirect_uri=${this.redirectUri}&scope=notes&response_type=token&v=5.85`}>
                         Получить токен
-                    </a>
+                    </Button>
                 </div>
             );
         } else {
