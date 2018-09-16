@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp';
 import { css } from 'react-emotion';
 import { ClipLoader } from 'react-spinners';
+import NotesAdd from "./NotesAdd";
 
 const override = css`
   display: block;
@@ -41,14 +42,17 @@ class Main extends Component {
         });
     }
 
+    addNote = note => {
+        this.componentDidMount();
+    };
+
     render() {
-        let notes = this.state.notes.map(note => {
-            return note.text;
-        });
-        console.log(notes);
         if (this.state.notesLoaded) {
             return (
-                <div>{this.createMarkup()}</div>
+                <div>
+                    {this.createMarkup()}
+                    <NotesAdd token={this.state.token} addNote={this.addNote}/>
+                </div>
             );
         } else {
             return (
