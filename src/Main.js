@@ -34,10 +34,27 @@ class Main extends Component {
             });
     }
 
+    handleDelete(id, e) {
+        fetchJsonp(
+            `https://api.vk.com/method/notes.delete?note_id=${id}&access_token=${this.state.token}&v=5.85`
+        )
+            .then(data => data.json())
+            .then(({response}) => {
+                this.componentDidMount();
+            })
+            .catch(ex => {
+                console.log("parsing failed", ex);
+            });
+    }
+
     createMarkup() {
         return this.state.notes.map(note => {
             return (
-                <div dangerouslySetInnerHTML={{__html: note.text}}/>
+                <div>
+                    <div dangerouslySetInnerHTML={{__html: note.text}}/>
+                    <div>{note.title}</div>
+                    <button onClick={(e) => this.handleDelete(note.id, e)}>delete</button>
+                </div>
             );
         });
     }
