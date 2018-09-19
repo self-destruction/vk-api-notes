@@ -5,11 +5,13 @@ import { ClipLoader } from 'react-spinners';
 import AddNote from "./AddNote";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const override = css`
   display: block;
@@ -40,10 +42,11 @@ const styles = theme => ({
         textAlign: 'center',
         margin: theme.spacing.unit,
     },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
-        width: 400,
+    div: {
+        alignItems: 'flex-start',
+    },
+    button: {
+        margin: theme.spacing.unit,
     },
 });
 
@@ -97,15 +100,14 @@ class Main extends Component {
                             <div dangerouslySetInnerHTML={{__html: note.text}}/>
                         </Typography>
                     </CardContent>
+                    <div className={this.state.classes.div}>
+                        <Button size="small" className={this.state.classes.button} onClick={(e) => this.handleDelete(note.id, e)}>
+                            <DeleteIcon />
+                        </Button>
+                    </div>
                 </Paper>
             );
         });
-
-        {/*<div>*/}
-            {/*<div dangerouslySetInnerHTML={{__html: note.text}}/>*/}
-            {/*<div>{note.title}</div>*/}
-            {/*<button onClick={(e) => this.handleDelete(note.id, e)}>delete</button>*/}
-        {/*</div>*/}
     }
 
     addNote = note => {
@@ -143,7 +145,6 @@ class Main extends Component {
     }
 }
 
-// export default Main;
 Main.propTypes = {
     classes: PropTypes.object.isRequired,
 };

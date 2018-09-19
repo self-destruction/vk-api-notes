@@ -10,7 +10,6 @@ const styles = theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        // alignItems: 'center',
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -20,20 +19,13 @@ const styles = theme => ({
     div: {
         width: '100%',
         height: '30%',
-        // justifyContent: 'center',
-        // alignItems: 'right',
         margin: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        // display: 'flex',
         textAlign: 'right',
-        // justifyContent: 'flex-end',
     },
     button: {
         width: 80,
         textAlign: 'center',
-    },
-    rightIcon: {
-        // marginLeft: theme.spacing.unit,
     },
 });
 
@@ -96,10 +88,9 @@ class AddNote extends Component {
                     onChange={this.handleChangeTitleNote}
                 />
                 <TextField
-                    id="standard-multiline-static"
+                    id="standard-search"
                     label="Текст новой заметки"
-                    multiline
-                    rows="4"
+                    type="search"
                     className={classes.textField}
                     margin="normal"
                     onChange={this.handleChangeTextNote}
@@ -113,19 +104,7 @@ class AddNote extends Component {
         );
     }
 }
-{/*<div>*/}
-    {/*<form onSubmit={this.handleSubmit}>*/}
-        {/*<label>*/}
-            {/*<p>Название новой заметки</p>*/}
-            {/*<input onChange={this.handleChangeTitleNote}/>*/}
-            {/*<p>Текст новой заметки</p>*/}
-            {/*<input onChange={this.handleChangeTextNote}/>*/}
-        {/*</label>*/}
-        {/*<input type="submit" value="submit"/>*/}
-    {/*</form>*/}
-{/*</div>*/}
 
-// export default AddNote;
 AddNote.propTypes = {
     classes: PropTypes.object.isRequired,
 };
