@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import fetchJsonp from 'fetch-jsonp';
 import { css } from 'react-emotion';
 import { ClipLoader } from 'react-spinners';
-import AddNote from "./AddNote";
+import AddNote from './AddNote';
+import EditModal from './EditModal';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -10,7 +11,7 @@ import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
+import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const override = css`
@@ -88,6 +89,16 @@ class Main extends Component {
             });
     }
 
+    // handleEditModal() {
+    //     return (
+    //         <EditModal classes={this.state.classes}/>
+    //     );
+    // }
+    handleOpen = () => {
+        console.log(document.getElementById('div_note_text').getAttribute('value'));
+    };
+
+
     createMarkup() {
         return this.state.notes.map(note => {
             return (
@@ -97,13 +108,14 @@ class Main extends Component {
                             <div>{note.title}</div>
                         </Typography>
                         <Typography component="p">
-                            <div dangerouslySetInnerHTML={{__html: note.text}}/>
+                            <div id={'div_note_text'} dangerouslySetInnerHTML={{__html: note.text}}/>
                         </Typography>
                     </CardContent>
                     <div className={this.state.classes.div}>
                         <Button size="small" className={this.state.classes.button} onClick={(e) => this.handleDelete(note.id, e)}>
                             <DeleteIcon />
                         </Button>
+                        <EditModal classes={this.state.classes} note_id={note.id} title={note.title} text={note.text}/>
                     </div>
                 </Paper>
             );
