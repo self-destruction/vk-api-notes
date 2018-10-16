@@ -62,7 +62,7 @@ class AddNote extends Component {
                 )
                     .then(data => data.json())
                     .then(({response}) =>{
-                        this.props.addNote(response);
+                        this.props.updateNotes(response);
                     })
                     .catch(ex => {
                         console.log("parsing failed", ex);

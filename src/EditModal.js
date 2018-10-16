@@ -44,6 +44,7 @@ class EditModal extends Component {
 
     handleClose = () => {
         this.setState({ modal_open: false });
+        this.props.updateNotes();
     };
 
     handleChangeTitleNote(event) {
@@ -51,29 +52,16 @@ class EditModal extends Component {
     }
 
     handleChangeTextNote(event) {
-        console.log(event);
         this.setState({text: event.target.value});
     }
 
     handleSubmit(event) {
-        console.log(`https://api.vk.com/method/notes.edit?note_id=${this.state.note_id}&title=${this.state.title}&text=${this.state.text}&access_token=${this.state.token}&v=5.85`);
         fetchJsonp(
             `https://api.vk.com/method/notes.edit?note_id=${this.state.note_id}&title=${this.state.title}&text=${this.state.text}&access_token=${this.state.token}&v=5.85`
         )
             .then(data => data.json())
-            .then(({response}) => {
-                console.log(response);
+            .then((response) => {
                 this.handleClose();
-                // fetchJsonp(
-                //     `https://api.vk.com/method/notes.getById?note_id=${response}&access_token=${this.state.token}&v=5.85`
-                // )
-                //     .then(data => data.json())
-                //     .then(({response}) =>{
-                //         this.props.addNote(response);
-                //     })
-                //     .catch(ex => {
-                //         console.log("parsing failed", ex);
-                //     });
             })
             .catch(ex => {
                 console.log("parsing failed", ex);
@@ -129,14 +117,7 @@ class EditModal extends Component {
 }
 
 EditModal.propTypes = {
-    classes: PropTypes.object.isRequired,
-    // note_id: PropTypes.object.isRequired,
-    // title: PropTypes.object.isRequired,
-    // text: PropTypes.object.isRequired,
-    // modal_open: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
 };
-// We need an intermediary variable for handling the recursive nesting.
-// const EditModalWrapped = withStyles(styles)(EditModal);
 
 export default withStyles(styles)(EditModal);
-// export default withStyles(styles)(Main);

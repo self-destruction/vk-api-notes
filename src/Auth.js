@@ -7,6 +7,7 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Cookies from 'js-cookie';
 
 const styles = theme => ({
     layout: {
@@ -46,15 +47,22 @@ class Auth extends Component {
     }
 
     componentDidMount() {
-        const hash = window.location.hash;
-        if (hash) {
-            const token = hash
-                .slice(1)
-                .split("&")
-                .filter(params => params.indexOf("access_token=") !== -1)[0]
-                .split("=")[1];
+        if (Cookies.get('token')) {
+            let token = Cookies.get('token');
             this.props.setToken(token);
             this.setState({token, loaded: true});
+        } else {
+            const hash = window.location.hash;
+            if (hash) {
+                const token = hash
+                    .slice(1)
+                    .split("&")
+                    .filter(params => params.indexOf("access_token=") !== -1)[0]
+                    .split("=")[1];
+                Cookies.set('token', token, {path: '/'});
+                this.props.setToken(token);
+                this.setState({token, loaded: true});
+            }
         }
     }
 

@@ -89,40 +89,36 @@ class Main extends Component {
             });
     }
 
-    // handleEditModal() {
-    //     return (
-    //         <EditModal classes={this.state.classes}/>
-    //     );
-    // }
-    handleOpen = () => {
-        console.log(document.getElementById('div_note_text').getAttribute('value'));
-    };
-
-
     createMarkup() {
         return this.state.notes.map(note => {
+            let htmlObject = document.createElement('div');
+            htmlObject.innerHTML = note.text;
+
+            let note_text = htmlObject.getElementsByClassName('wikiText')[0].innerText;
+            note_text = note_text.substring(0, note_text.length - 1);
+
             return (
                 <Paper className={this.state.classes.paper}>
                     <CardContent>
                         <Typography gutterBottom variant="headline" component="h2">
-                            <div>{note.title}</div>
+                            <div className={note.id + 'title'}>{note.title}</div>
                         </Typography>
                         <Typography component="p">
-                            <div id={'div_note_text'} dangerouslySetInnerHTML={{__html: note.text}}/>
+                            <div className={note.id + 'text'}>{note_text}</div>
                         </Typography>
                     </CardContent>
                     <div className={this.state.classes.div}>
                         <Button size="small" className={this.state.classes.button} onClick={(e) => this.handleDelete(note.id, e)}>
                             <DeleteIcon />
                         </Button>
-                        <EditModal classes={this.state.classes} note_id={note.id} title={note.title} text={note.text}/>
+                        <EditModal classes={this.state.classes} note_id={note.id} title={note.title} text={note_text} token={this.state.token} updateNotes={this.updateNotes}/>
                     </div>
                 </Paper>
             );
         });
     }
 
-    addNote = note => {
+    updateNotes = () => {
         this.componentDidMount();
     };
 
@@ -133,7 +129,7 @@ class Main extends Component {
                 <React.Fragment>
                     <CssBaseline />
                     <main className={classes.layout}>
-                        <AddNote token={this.state.token} addNote={this.addNote}/>
+                        <AddNote token={this.state.token} updateNotes={this.updateNotes}/>
                         <Card className={classes.card}>
                             {this.createMarkup()}
                         </Card>
